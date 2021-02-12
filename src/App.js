@@ -14,6 +14,7 @@ import {
 import Data from "./data.js";
 import { Link, Route, Switch } from "react-router-dom";
 import Detail from "./Detail.js";
+import axios from "axios";
 
 function Card(props) {
   //컴포넌트는 간단하게 작성
@@ -74,7 +75,7 @@ function App() {
         <Container>
           <Row>
             {shoes.map((a, i) => {
-              //map 함수에서 반복 돌리기
+              //map 함수에서 반복 돌리기 (shoes배열이 변경되면 자동 업뎃)
               return (
                 <Col>
                   <Card shoes={shoes[i]}></Card>
@@ -82,6 +83,19 @@ function App() {
               );
             })}
           </Row>
+          <button
+            className="btn btn-primary"
+            onClick={() => {
+              axios
+                .get("https://codingapple1.github.io/shop/data2.json")
+                .then((result) => {
+                  shoesChange([...shoes, ...result.data]); //사본없이 새 배열 자동생성 -> map 자동 업뎃
+                })
+                .catch(() => {});
+            }}
+          >
+            더보기
+          </button>
         </Container>
       </Route>
       <Route path="/detail/:id">
