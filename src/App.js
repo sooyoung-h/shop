@@ -110,6 +110,20 @@ function App() {
           >
             더보기
           </button>
+          <button
+            className="btn btn-primary"
+            onClick={() => {
+              axios
+                .post("https://codingapple1.github.io/shop/data2.json", {
+                  id: "test",
+                  pw: 1234,
+                })
+                .then((result) => {})
+                .catch(() => {});
+            }}
+          >
+            보내기
+          </button>
         </Container>
       </Route>
       <Route path="/detail/:id">
