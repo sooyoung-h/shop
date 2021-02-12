@@ -1,6 +1,6 @@
 import logo from "./logo.svg";
+import React, { useState } from "react";
 import "./App.css";
-import React from "react";
 import {
   Container,
   Col,
@@ -11,10 +11,14 @@ import {
   Jumbotron,
   Button,
 } from "react-bootstrap";
+import Data from "./data.js";
 
 function App() {
+  let [shoes, shoesChange] = useState(Data);
+
   return (
     <div className="App">
+      {shoes[0].title} //다른 js 파일에서 import/export
       <Navbar bg="light" expand="lg">
         <Navbar.Brand href="#home">React-Bootstrap</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
