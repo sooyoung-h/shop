@@ -5,14 +5,27 @@ function Detail(props) {
   let history = useHistory();
   let { id } = useParams();
   let [alert, alertChange] = useState(true);
+  let [inputData, inputDataChange] = useState("");
+
   useEffect(() => {
-    setTimeout(() => {
+    let timer = setTimeout(() => {
       alertChange(false);
     }, 2000);
-  });
 
+    return () => {
+      //컴포넌트 퇴장시
+      clearTimeout(timer);
+    };
+  }, [alert]); //alert라는 state가 변경이 될 때만 실행됨
+  //그냥 []일 경우 Detail 컴포넌트가 실행될 때 한번만 실행되는 useEffect
   return (
     <div className="container">
+      {/* {inputData}  input에 입력할 때마다 재랜더링-> 낭비*/}
+      <input
+        onChange={(e) => {
+          inputDataChange(e.target.value);
+        }}
+      ></input>
       {alert === true ? (
         <div class="alert alert-primary" role="alert">
           A simple primary alert—check it out!
