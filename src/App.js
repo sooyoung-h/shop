@@ -75,9 +75,11 @@ function App() {
           <Row>
             {shoes.map((a, i) => {
               //map 함수에서 반복 돌리기
-              <Col>
-                <Card shoes={shoes[i]}></Card>
-              </Col>;
+              return (
+                <Col>
+                  <Card shoes={shoes[i]}></Card>
+                </Col>
+              );
             })}
           </Row>
         </Container>
