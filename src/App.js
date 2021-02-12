@@ -31,6 +31,15 @@ function Card(props) {
 
 function App() {
   let [shoes, shoesChange] = useState(Data);
+  let [load, loadChange] = useState("");
+
+  function Loading() {
+    return (
+      <div class="spinner-border text-dark" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+    );
+  }
 
   return (
     <div className="App">
@@ -83,15 +92,20 @@ function App() {
               );
             })}
           </Row>
+          {load === true ? <Loading></Loading> : null}
           <button
             className="btn btn-primary"
             onClick={() => {
+              loadChange(true); //로딩되는 동안 표시하기
               axios
                 .get("https://codingapple1.github.io/shop/data2.json")
                 .then((result) => {
+                  loadChange(false);
                   shoesChange([...shoes, ...result.data]); //사본없이 새 배열 자동생성 -> map 자동 업뎃
                 })
-                .catch(() => {});
+                .catch(() => {
+                  loadChange(false);
+                });
             }}
           >
             더보기
