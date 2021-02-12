@@ -13,12 +13,24 @@ import {
 } from "react-bootstrap";
 import Data from "./data.js";
 
+function Card(props) {
+  //컴포넌트는 간단하게 작성
+  return (
+    <div className="col-md-4">
+      <img src="https://codingapple1.github.io/shop/shoes1.jpg" width="100%" />
+      <h4>{props.shoes.title}</h4>
+      <p>
+        {props.shoes.content} & {props.shoes.price}
+      </p>
+    </div>
+  );
+}
+
 function App() {
   let [shoes, shoesChange] = useState(Data);
 
   return (
     <div className="App">
-      {shoes[0].title} //다른 js 파일에서 import/export
       <Navbar bg="light" expand="lg">
         <Navbar.Brand href="#home">React-Bootstrap</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
@@ -52,9 +64,12 @@ function App() {
       </Jumbotron>
       <Container>
         <Row>
-          <Col>1 of 3</Col>
-          <Col>2 of 3</Col>
-          <Col>3 of 3</Col>
+          {shoes.map((a, i) => {
+            //map 함수에서 반복 돌리기
+            <Col>
+              <Card shoes={shoes[i]}></Card>
+            </Col>;
+          })}
         </Row>
       </Container>
     </div>
