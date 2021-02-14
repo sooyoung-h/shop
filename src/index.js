@@ -5,7 +5,7 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
-import { createStore } from "redux";
+import { combineReducers, createStore } from "redux";
 
 let defaultState = [
   { id: 0, name: "username", quan: 2 },
@@ -29,7 +29,15 @@ function reducer(state = defaultState, action) {
   }
 }
 
-let store = createStore(reducer);
+let alertDefault = true;
+function reducer2(state = alertDefault, action) {
+  if (action.type === "close") {
+    state = false;
+  }
+  return state;
+}
+
+let store = createStore(combineReducers({ reducer, reducer2 }));
 
 ReactDOM.render(
   <React.StrictMode>
