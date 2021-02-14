@@ -15,6 +15,7 @@ import Data from "./data.js";
 import { Link, Route, Switch } from "react-router-dom";
 import Detail from "./Detail.js";
 import axios from "axios";
+import Cart from "./Cart.js";
 
 function Card(props) {
   //컴포넌트는 간단하게 작성
@@ -128,6 +129,9 @@ function App() {
       </Route>
       <Route path="/detail/:id">
         <Detail shoes={shoes}></Detail>
+      </Route>
+      <Route path="/cart">
+        <Cart></Cart>
       </Route>
     </div>
   );
