@@ -21,6 +21,15 @@ function Cart(props) {
         </thead>
         <tbody>
           <tr>{arr}</tr>
+          {props.state.map((a, i) => {
+            return (
+              <tr key={i}>
+                <td>{a.id}</td>
+                <td>{a.name}</td>
+                <td>{a.quan}</td>
+              </tr>
+            );
+          })}
         </tbody>
       </Table>
     </div>
@@ -28,6 +37,7 @@ function Cart(props) {
 }
 //state 받아오는 셋팅
 function myFunc(state) {
+  //여기서 받는 state는 보내준 store 데이터를 의미!
   //redux state 데이터를 props로 변환해주는 함수
   return {
     state: state, //state 데이터를 props로 등록 (props명 : state명)
