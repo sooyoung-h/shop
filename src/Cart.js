@@ -27,6 +27,22 @@ function Cart(props) {
                 <td>{a.id}</td>
                 <td>{a.name}</td>
                 <td>{a.quan}</td>
+                <td>
+                  <button
+                    onClick={() => {
+                      props.dispatch({ type: "countUp" });
+                    }}
+                  >
+                    +
+                  </button>
+                  <button
+                    onClick={() => {
+                      props.dispatch({ type: "countDown" });
+                    }}
+                  >
+                    -
+                  </button>
+                </td>
               </tr>
             );
           })}
