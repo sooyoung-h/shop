@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useHistory, useParams } from "react-router-dom";
 import { Nav } from "react-bootstrap";
+import { CSSTransition } from "react-transition-group";
+import "./Detail.css";
 
 function Detail(props) {
   let history = useHistory();
@@ -8,6 +10,7 @@ function Detail(props) {
   let [alert, alertChange] = useState(true);
   let [inputData, inputDataChange] = useState("");
   let [currentTab, currentTabChange] = useState(0);
+  let [mySwitch, mySwitchChange] = useState(false);
 
   useEffect(() => {
     let timer = setTimeout(() => {
@@ -60,6 +63,7 @@ function Detail(props) {
           <Nav.Link
             eventKey="link-0"
             onClick={() => {
+              mySwitchChange(false);
               currentTabChange(0); //탭 변경
             }}
           >
@@ -70,6 +74,7 @@ function Detail(props) {
           <Nav.Link
             eventKey="link-1"
             onClick={() => {
+              mySwitchChange(false);
               currentTabChange(1);
             }}
           >
@@ -80,6 +85,7 @@ function Detail(props) {
           <Nav.Link
             eventKey="link-1"
             onClick={() => {
+              mySwitchChange(false);
               currentTabChange(2);
             }}
           >
@@ -87,13 +93,22 @@ function Detail(props) {
           </Nav.Link>
         </Nav.Item>
       </Nav>
-      <TabContent currentTab={currentTab}></TabContent>
+      <CSSTransition in={mySwitch} classNames="effect" timeout={500}>
+        {/* in={true}일 때 동작함 */}
+        <TabContent
+          currentTab={currentTab}
+          mySwitchChange={mySwitchChange}
+        ></TabContent>
+      </CSSTransition>
     </div>
   );
 }
 
 function TabContent(props) {
   //삼항 연산자로 할 수 없는 경우 (세가지 이상의 케이스가 있을 경우)
+  useEffect(() => {
+    props.mySwitchChange(true);
+  });
   if (props.currentTab === 0) {
     return <div>0번째 내용입니다</div>;
   } else if (props.currentTab === 1) {
