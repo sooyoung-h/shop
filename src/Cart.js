@@ -1,7 +1,13 @@
 import React from "react";
 import { Table } from "react-bootstrap";
+import { connect } from "react-redux";
 
-function Cart() {
+function Cart(props) {
+  let arr = [];
+  for (let i = 0; i < 4; i++) {
+    arr.push(<td>{props.state[i].name}</td>);
+  }
+
   return (
     <div>
       <Table striped bordered hover size="sm">
@@ -14,16 +20,19 @@ function Cart() {
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>1</td>
-            <td>Mark</td>
-            <td>Otto</td>
-            <td>@mdo</td>
-          </tr>
+          <tr>{arr}</tr>
         </tbody>
       </Table>
     </div>
   );
 }
+//state 받아오는 셋팅
+function myFunc(state) {
+  //redux state 데이터를 props로 변환해주는 함수
+  return {
+    state: state, //state 데이터를 props로 등록 (props명 : state명)
+  };
+}
 
-export default Cart;
+export default connect(myFunc)(Cart);
+//export default Cart;
