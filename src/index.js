@@ -16,7 +16,11 @@ let defaultState = [
 
 function reducer(state = defaultState, action) {
   //데이터 수정하는 함수, 항상 state를 리턴함
-  if (action.type === "countUp") {
+  if (action.type === "plusItem") {
+    let copy = [...state];
+    copy.push(action.payload);
+    return copy;
+  } else if (action.type === "countUp") {
     let copy = [...state];
     copy[0].quan++;
     return copy;

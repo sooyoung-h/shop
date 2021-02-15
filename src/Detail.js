@@ -3,6 +3,7 @@ import { useHistory, useParams } from "react-router-dom";
 import { Nav } from "react-bootstrap";
 import { CSSTransition } from "react-transition-group";
 import "./Detail.css";
+import { connect } from "react-redux";
 
 function Detail(props) {
   let history = useHistory();
@@ -47,7 +48,19 @@ function Detail(props) {
           <h4 className="pt-5">{props.shoes[id].title}</h4>
           <p>{props.shoes[id].content}</p>
           <p>{props.shoes[id].price}</p>
-          <button className="btn btn-danger">주문하기</button>
+          <button
+            className="btn btn-danger"
+            onClick={() => {
+              props.dispatch({
+                type: "plusItem",
+                payload: { id: 4, name: "new item!", quan: 1 },
+              });
+              console.log(props.state);
+              history.push("/cart"); //데이터 추가되면서 이동!
+            }}
+          >
+            주문하기
+          </button>
           <button
             onClick={() => {
               history.goBack();
@@ -117,4 +130,14 @@ function TabContent(props) {
     return <div>2번째 내용입니다</div>;
   }
 }
-export default Detail;
+
+function myFunc(state) {
+  return {
+    state: state.reducer,
+    alertShow: state.reducer2,
+  };
+}
+
+export default connect(myFunc)(Detail);
+
+//export default Detail;
